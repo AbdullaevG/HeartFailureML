@@ -1,0 +1,22 @@
+input_data_path: "data/raw/heart.csv"
+splitting_params:
+  validate_size: 0.1
+  random_state: 3
+feature_params:
+  categorical_columns:
+    - "Sex" 
+    - "ChestPainType"
+    - "FastingBS"
+    - "RestingECG"
+    - "ExerciseAngina"
+    - "ST_Slope"
+  numerical_columns:
+    - "Age"
+    - "RestingBP"
+    - "Cholesterol"
+    - "MaxHR"
+    - "Oldpeak"
+  target_column: "HeartDisease"
+training_params:
+  model_type: "LogisticRegression"
+  random_state: 42
