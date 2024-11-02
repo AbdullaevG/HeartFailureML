@@ -10,7 +10,3 @@ def train_model(features: np.array, target: np.array, training_params: TrainingP
         raise NotImplementedError()
     model.fit(features, target)
     return model
-    
-def model_predict(features: np.array, model: LogisticRegression)-> np.array:
-    predict = model.predict(features)
-    return predict
