@@ -1,10 +1,11 @@
 import sys
+import json
 import logging
 import click
 from src.data import read_data, split_train_validate_data
 from src.entities import TrainingPipelineParams, read_training_pipeline_params
 from src.features import make_features, build_transformer, extract_target
-from src.models import train_model, model_predict
+from src.models import train_model, model_predict, evaluate_model, save_model
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -38,8 +39,15 @@ def train_pipeline(training_pipeline_params: TrainingPipelineParams):
     logger.info(f"Start training model...")
     model = train_model(train_features, train_target, training_pipeline_params.training_params)
     logger.info(f"Model was trained successfully!!!\n")
+    logger.info(f"Start getting metrics...!!!\n")
     predict = model_predict(validate_features, model)
-    import pdb; pdb.set_trace()
+    metrics = evaluate_model(predict, validate_target)
+    with open(training_pipeline_params.metric_file_path, "w") as metric_file:
+        json.dump(metrics, metric_file)
+    logger.info(f"Metrics was saved in {training_pipeline_params.metric_file_path}!!!\n")
+    save_model(model, training_pipeline_params.model_save_path)
+    logger.info(f"Model was saved at {training_pipeline_params.model_save_path}!!!\n")
+
 
 @click.command(name="train_pipeline")
 @click.argument("config_path")
