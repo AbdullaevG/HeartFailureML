@@ -5,4 +5,9 @@ from .training_pipeline_params import (
 )
 from .training_params import TrainingParams
 
-__all__ = ["SplittingParams", "TrainingPipelineParams", "read_training_pipeline_params", "TrainingParams"]
+__all__ = [
+    "SplittingParams",
+    "TrainingPipelineParams",
+    "read_training_pipeline_params",
+    "TrainingParams",
+]

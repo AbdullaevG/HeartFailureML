@@ -35,16 +35,22 @@ def train_pipeline(training_pipeline_params: TrainingPipelineParams):
         f"Prepared train and validate features, train features shape: {train_features.shape}, validate features shape: {validate_features.shape}\n"
     )
     train_target = extract_target(df_train, training_pipeline_params.feature_params)
-    validate_target = extract_target(df_validate, training_pipeline_params.feature_params)
+    validate_target = extract_target(
+        df_validate, training_pipeline_params.feature_params
+    )
     logger.info(f"Start training model...")
-    model = train_model(train_features, train_target, training_pipeline_params.training_params)
+    model = train_model(
+        train_features, train_target, training_pipeline_params.training_params
+    )
     logger.info(f"Model was trained successfully!!!\n")
     logger.info(f"Start getting metrics...!!!\n")
     predict = model_predict(validate_features, model)
     metrics = evaluate_model(predict, validate_target)
     with open(training_pipeline_params.metric_file_path, "w") as metric_file:
         json.dump(metrics, metric_file)
-    logger.info(f"Metrics was saved in {training_pipeline_params.metric_file_path}!!!\n")
+    logger.info(
+        f"Metrics was saved in {training_pipeline_params.metric_file_path}!!!\n"
+    )
     save_model(model, training_pipeline_params.model_save_path)
     logger.info(f"Model was saved at {training_pipeline_params.model_save_path}!!!\n")
 
