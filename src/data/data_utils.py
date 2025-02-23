@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from src.entities import SplittingParams
 
 def load_data_from_s3(file_path: str, output_folder_path: str):
-    os.system(f"s3cmd get -r {file_path} {output_folder_path}")
+    os.system(f"s3cmd get -r --force {file_path} {output_folder_path}")
 
 def put_to_s3(file_path: str, s3_file_path: Optional[str]):
     os.system(f"s3cmd put {file_path} {s3_file_path}")
