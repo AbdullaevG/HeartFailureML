@@ -1,3 +1,5 @@
+s3_data_path: "s3://gisp/rosatom/ml_example/data"
+output_data_folder: "./"
 input_data_path: "data/raw/heart.csv"
 splitting_params:
   validate_size: 0.1
@@ -21,4 +23,5 @@ training_params:
   model_type: "LogisticRegression"
   random_state: 42
 metric_file_path: "models/metrics.json"
-model_save_path: "models/baseline_logreg.pkl"
+local_model_save_path: "models/baseline_logreg.pkl"
+model_s3_path: "s3://gisp/rosatom/ml_example/model/baseline_logreg.pkl"
