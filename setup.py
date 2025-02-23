@@ -18,7 +18,8 @@ setup(
         "dataclasses==0.6",
         "pyyaml==5.3",
         "marshmallow-dataclass==8.3.0",
-        "pandas"
+        "pandas",
+        "s3cmd"
     ],
     license="MIT",
 )
