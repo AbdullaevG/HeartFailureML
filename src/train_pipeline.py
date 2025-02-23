@@ -2,7 +2,7 @@ import sys
 import json
 import logging
 import click
-from src.data import read_data, split_train_validate_data
+from src.data import read_data, split_train_validate_data, load_data_from_s3
 from src.entities import TrainingPipelineParams, read_training_pipeline_params
 from src.features import make_features, build_transformer, extract_target
 from src.models import train_model, model_predict, evaluate_model, save_model
@@ -14,6 +14,8 @@ logger.addHandler(handler)
 
 
 def train_pipeline(training_pipeline_params: TrainingPipelineParams):
+    logger.info(f'Load data from minio...')
+    load_data_from_s3(training_pipeline_params.s3_data_path, training_pipeline_params.output_data_folder)
     logger.info(f"Read data file...")
     df = read_data(training_pipeline_params.input_data_path)
     logger.info(f"Data loaded successfully, total number of objects: {df.shape[0]}\n")
@@ -45,14 +47,15 @@ def train_pipeline(training_pipeline_params: TrainingPipelineParams):
     logger.info(f"Model was trained successfully!!!\n")
     logger.info(f"Start getting metrics...!!!\n")
     predict = model_predict(validate_features, model)
+    
     metrics = evaluate_model(predict, validate_target)
     with open(training_pipeline_params.metric_file_path, "w") as metric_file:
         json.dump(metrics, metric_file)
     logger.info(
         f"Metrics was saved in {training_pipeline_params.metric_file_path}!!!\n"
     )
-    save_model(model, training_pipeline_params.model_save_path)
-    logger.info(f"Model was saved at {training_pipeline_params.model_save_path}!!!\n")
+    save_model(model, training_pipeline_params.local_model_save_path, training_pipeline_params.model_s3_path)
+    logger.info(f"Model saved locally at {training_pipeline_params.local_model_save_path} and to minio: {training_pipeline_params.model_s3_path}!!!\n")
 
 
 @click.command(name="train_pipeline")
