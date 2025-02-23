@@ -8,12 +8,15 @@ import yaml
 
 @dataclass
 class TrainingPipelineParams:
+    s3_data_path: str
+    output_data_folder: str
     input_data_path: str
     splitting_params: SplittingParams
     feature_params: FeatureParams
     training_params: TrainingParams
     metric_file_path: str
-    model_save_path: str
+    local_model_save_path: str
+    model_s3_path: str
 
 
 TrainingPipelineParamsSchema = class_schema(TrainingPipelineParams)
