@@ -1,5 +1,19 @@
 # HeartFailureML
-1. ```python -m venv env```
-2. ```source env/bin/activate```
-3. ```pip install -e .```
-4. ```python src/train_pipeline.py configs/train_config.yml```
+
+Installation:
+
+```
+python -m venv env
+source env/bin/activate
+pip install -e .
+python src/train_pipeline.py configs/train_config.yml
+```
+
+Docker
+```
+python setup.py sdist
+docker build -t  heart_failure:v0 .
+docker run --name heart_failure heart_failure:v0 
+```
+
+
