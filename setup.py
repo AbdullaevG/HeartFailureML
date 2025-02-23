@@ -6,14 +6,19 @@ setup(
     version='0.1.0',
     description="Example of ml project",
     author="Abdullaev Gadzhimurad",
+    entry_points={
+        "console_scripts": [
+            "ml_project_train = src.train_pipeline:train_pipeline_command"
+        ]
+    },
     install_requires=[
         "click==7.1.2",
         "python-dotenv>=0.5.1",
-        "scikit-learn==1.5.2",
+        "scikit-learn",
         "dataclasses==0.6",
-        "pyyaml==3.11",
+        "pyyaml==5.3",
         "marshmallow-dataclass==8.3.0",
-        "pandas==2.2.3"
+        "pandas"
     ],
     license="MIT",
 )
