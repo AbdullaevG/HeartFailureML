@@ -17,6 +17,7 @@ setup(
         "scikit-learn",
         "dataclasses==0.6",
         "pyyaml==5.3",
+        "clearml==1.17.1",
         "marshmallow-dataclass==8.3.0",
         "pandas",
         "s3cmd"
