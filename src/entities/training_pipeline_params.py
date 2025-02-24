@@ -4,10 +4,14 @@ from .feature_params import FeatureParams
 from .training_params import TrainingParams
 from marshmallow_dataclass import class_schema
 import yaml
-
+from typing import List
 
 @dataclass
 class TrainingPipelineParams:
+    project_name: str
+    task_name: str
+    tags: List[str]
+    configuration_path: str
     s3_data_path: str
     output_data_folder: str
     input_data_path: str
